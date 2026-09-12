@@ -37,7 +37,7 @@ function Board({ xIsNext, onPlay, squaresValues }) {
 
   function handleClick(i) {
     // guard clause to prevent rewriting each box multiple times if it was already written onces
-    // second condition of the guard clause = return the winner if the winner exists or reutn null which is not rendered in react - this works because of or statement
+    // second condition of the guard clause = return the winner if the winner exists or reutn null which is not rendered in react - this works because of or statement - meaning is somebody has won, wstop hte game
     if (squaresValues[i] || calculateWinner(squaresValues)) return;
 
     const nextSquares = [...squaresValues];
@@ -115,7 +115,11 @@ export default function Game() {
     setHistory([...history, nextSquares]);
   }
 
-  function jumpTo() {}
+  function jumpTo(move) {
+    setCurrentMove(move);
+
+    setXIsNext(move % 2 === 0);
+  }
 
   const moves = history.map((squares, moveIndex) => {
     let description;
