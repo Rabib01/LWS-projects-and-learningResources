@@ -108,16 +108,17 @@ export default function Game() {
   const [curretMove, setCurrentMove] = useState(0);
 
   // gety the last element of history and ??
-  const currentSquares = history[history.length - 1];
+  const currentSquares = history[curretMove];
 
   function handlePlay(nextSquares) {
     setXIsNext(!xIsNext);
-    setHistory([...history, nextSquares]);
+    const nextHistory = [...history.slice(0, curretMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
   }
 
   function jumpTo(move) {
     setCurrentMove(move);
-
     setXIsNext(move % 2 === 0);
   }
 
@@ -149,8 +150,6 @@ export default function Game() {
           squaresValues={currentSquares}
           onPlay={handlePlay}
         />
-      </div>
-      <div>
         <ol>{moves}</ol>
       </div>
     </>
