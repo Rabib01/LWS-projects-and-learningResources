@@ -1,3 +1,7 @@
+# A simple tic-tac-toe game built with react
+
+### Link to game : https://unique-rugelach-70f6b2.netlify.app/
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
