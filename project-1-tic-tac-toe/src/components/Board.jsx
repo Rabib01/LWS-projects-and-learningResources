@@ -56,7 +56,7 @@ function Board({ xIsNext, onPlay, squaresValues }) {
           {status}
         </p>
       </div>
-      <div className="grid grid-cols-3 gap-4 ml-3  ">
+      <div className="grid grid-cols-3 gap-4 ml-4.5  ">
         <Square
           squareValue={squaresValues[0]}
           onSquareClick={() => handleClick(0)}
@@ -132,6 +132,7 @@ export default function Game() {
     return (
       <li key={moveIndex}>
         <button
+          className="w-[350px] rounded-lg mb-4 text-2xl border-b-4 border-r-4 border-[#A98273] bg-amber-100 shadow-[8px_5px_0_#A98273] items-center justify-center flex"
           onClick={() => {
             jumpTo(moveIndex);
           }}
@@ -150,7 +151,9 @@ export default function Game() {
           squaresValues={currentSquares}
           onPlay={handlePlay}
         />
-        <ol>{moves}</ol>
+      </div>
+      <div>
+        <ol className="absolute top-[114px] left-[700px]">{moves}</ol>
       </div>
     </>
   );
