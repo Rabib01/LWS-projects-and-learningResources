@@ -23,10 +23,7 @@ function calculateWinner(squares) {
   return null;
 }
 
-function Board() {
-  const [squaresValues, setSquaresValue] = useState(Array(9).fill(null));
-  const [xIsNext, setXIsNext] = useState(true);
-
+function Board({ xIsNext, onPlay, squaresValues }) {
   const winner = calculateWinner(squaresValues);
   let status;
 
@@ -49,8 +46,7 @@ function Board() {
     } else {
       nextSquares[i] = "O";
     }
-    setSquaresValue(nextSquares);
-    setXIsNext(!xIsNext);
+    onPlay(nextSquares);
   }
 
   return (
@@ -105,13 +101,53 @@ function Board() {
 export default function Game() {
   // child level e state maintain na kore parent level e state maintain korbo
   // parent level e data access rakhbo and then share them to the child level as props
+  // keeping the fucking thing here and making it into an array of array of 9 elements instead of kust an array of 9 elements
+
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [xIsNext, setXIsNext] = useState(true);
+  const [curretMove, setCurrentMove] = useState(0);
+
+  // gety the last element of history and ??
+  const currentSquares = history[history.length - 1];
+
+  function handlePlay(nextSquares) {
+    setXIsNext(!xIsNext);
+    setHistory([...history, nextSquares]);
+  }
+
+  function jumpTo() {}
+
+  const moves = history.map((squares, moveIndex) => {
+    let description;
+    if (moveIndex > 0) {
+      description = `Go to move : ${moveIndex}`;
+    } else {
+      description = `Go to the start of the game `;
+    }
+    return (
+      <li key={moveIndex}>
+        <button
+          onClick={() => {
+            jumpTo(moveIndex);
+          }}
+        >
+          {description}
+        </button>
+      </li>
+    );
+  });
+
   return (
     <>
       <div>
-        <Board />
+        <Board
+          xIsNext={xIsNext}
+          squaresValues={currentSquares}
+          onPlay={handlePlay}
+        />
       </div>
       <div>
-        <ol>{/**TBD */}</ol>
+        <ol>{moves}</ol>
       </div>
     </>
   );
